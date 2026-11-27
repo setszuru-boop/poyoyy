@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mensahe kay poyoy</title>
+<style>
+  :root {
+    --ink: #ffffff;
+    --yes: #2f9e6b;
+    --yes-ink: #ffffff;
+    --no: #e8dcf5;
+    --no-ink: #2b1b3d;
+    --level: 0;
+  }
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; margin: 0; }
+  body {
+    background-color: #000;
+    background-image: url('https://decomail.space/bg/black/69.gif');
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    text-align: center;
+    padding: 24px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  #pic {
+    width: min(40vw, 420px);
+    height: auto;
+    flex-shrink: 0;
+  }
+  main { width: 100%; max-width: 560px; }
+  h1 {
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    line-height: 1.25;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 6px #000;
+  }
+  p {
+    margin: 0 0 28px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    min-height: 1.5em;
+    text-shadow: 0 2px 6px #000;
+  }
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    font: inherit;
+    font-weight: 700;
+    border: 0;
+    border-radius: 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: font-size .25s ease, padding .25s ease;
+  }
+  button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  #yes {
+    background: var(--yes);
+    color: var(--yes-ink);
+    font-size: calc(1.15rem + var(--level) * .22rem);
+    padding: calc(14px + var(--level) * 2px) calc(34px + var(--level) * 4px);
+    max-width: 100%;
+  }
+  #no {
+    background: var(--no);
+    color: var(--no-ink);
+    font-size: max(.85rem, calc(1.15rem - var(--level) * .05rem));
+    padding: max(12px, calc(14px - var(--level) * 0.3px)) max(18px, calc(34px - var(--level) * 2px));
+    min-height: 44px;
+    opacity: calc(1 - var(--level) * .06);
+  }
+  /* last tap: Yes takes over the screen */
+  body.done-growing #yes {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    border-radius: 0;
+    font-size: clamp(2.5rem, 14vw, 6rem);
+    z-index: 5;
+  }
+  /* phones: image on top, text below */
+  @media (max-width: 700px) {
+    body { flex-direction: column; gap: 16px; }
+    #pic { width: min(70vw, 300px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    button { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<img id="pic" src="c:\Users\setsz\Downloads\Site-community-image.png" alt="c:\Users\setsz\Downloads\a7e88dbe1ea4b03a6d12f2db18b9acd2_thumb_w400.png">
+<main>
+  <h1 id="title">Ni haoo poyoyyyy, May tanong ako and click mo nalang yes kung gusto mo malaman, but before you click something.. </h1>
+  <p id="sub" aria-live="polite">I just want to say that I'm happy and I'm glad that I met you.
+    I know I always say I miss you and stuff and I've come up to this point that my feelings grew more, and I'm attached to you.
+    Since I'm starting to literally love you, and I just want to ask you, Marianne.
+  </p>
+  <div class="buttons">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const yes = document.getElementById('yes');
+  const no = document.getElementById('no');
+  const sub = document.getElementById('sub');
+  const title = document.getElementById('title');
+  const pic = document.getElementById('pic');
+  const MAX_LEVEL = 9;
+  const lines = [
+    "napindot mo ba yan....", "bakit oi...", "oo lumalaki yung yes....",
+    "sige na ohh....", "napag isipan mo nba....", "pleaseeee",
+    "last na", "last last na....", ""
+  ];
+  let level = 0;
+
+  no.addEventListener('click', () => {
+    level = Math.min(level + 1, MAX_LEVEL);
+    root.style.setProperty('--level', level);
+    sub.textContent = lines[level - 1] || "";
+    if (level >= MAX_LEVEL) {
+      no.style.display = 'none';
+      document.body.classList.add('done-growing');
+    }
+  });
+
+  yes.addEventListener('click', () => {
+    document.getElementById('pic').src = 'a7e88dbe1ea4b03a6d12f2db18b9acd2_thumb_w400.webp';
+    document.body.classList.remove('done-growing');
+    title.textContent = "May I court you?...";
+    sub.textContent = "";
+    no.style.display = 'none';
+    yes.style.display = 'none';
+  });
+</script>
+</body>
+</html>
